@@ -1,0 +1,79 @@
+</h1>
+
+<table id="myData">
+
+    <!-- <% PlayerData.forEach(function (item) { %>
+        <tr>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.game_id %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.game_name %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.time_hours %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.time_minutes %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.time_seconds %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.platform %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.date %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <a target="_blank" href=<%=item.link %> >
+                    <%= item.link %>
+                </a>
+            </th>
+        </tr>
+        <% }) %> -->
+    <% PlayerData.forEach(function (item) { %>
+        <tr>
+            <th style="border: 1px solid black;">
+                <img href='/<%=item._id%>' src=<%=item.gameImage %>>
+                <a href='AllowRecord/<%=item._id%>'>
+                    <%= item.game_name %>
+                </a>
+                <h1>
+                    <%= item.game_id %>
+                </h1>
+                <h1>
+                    <%= item.runType %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.game_id %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    Suck my dick
+                    <%= item %>
+                </h1>
+            </th>
+        </tr>
+    <% }) %>
+</table>
+
+<a href="/newRecord">new record</a>
+<a href="/newGame">new game</a>

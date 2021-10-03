@@ -1,0 +1,35 @@
+<!-- all this page does is allow the admins to say if the run is allowed or not -->
+<!-- <%= PlayerData %> -->
+<tr>
+    <th style="border: 1px solid black;">
+        <h1>
+            <%= PlayerData.game_name %>
+        </h1>
+        <h1>
+            <%= PlayerData.runType %>
+        </h1>
+    </th>
+    <th style="border: 1px solid black;">
+        <h1>
+            <%= PlayerData.game_id %>
+        </h1>
+    </th>
+    <th style="border: 1px solid black;">
+        <h1>
+            <%= PlayerData.link %>
+        </h1>
+    </th>
+</tr>
+
+<form action="" method="POST">
+    <input type="hidden" name="id" value='<%=PlayerData._id%>'>
+    <input type="submit" name="Add" value="Add" />
+    <input type="submit" name="Remove" value="Remove" />
+</form>
+<!-- <form action="" method="DELETE">
+    <input type="hidden" id="id" value='<%=PlayerData.id%>'>
+    <button type="submit">Remove Record</button>
+</form> -->
+
+<a href="/newRecord">new record</a>
+<a href="/newGame">new game</a>

@@ -1,0 +1,58 @@
+</h1>
+
+<table id="myData">
+
+    <% PlayerData.forEach(function (item) { %>
+        <%const time_hours = parseInt(item.time_seconds / 3600)%>
+        <%const time_minutes = parseInt((item.time_seconds % 3600) / 60)%>
+        <%const time_seconds = ((item.time_seconds % 3600) % 60)%>
+        <%console.log("player seconds " + item.time_seconds)%>
+        <%console.log(time_seconds)%>
+        <tr>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.game_name %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= time_hours %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= time_minutes %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= time_seconds %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.platform %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.date %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <a target="_blank" href=<%=item.link %> >
+                    <%= item.link %>
+                </a>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.runType %>
+                </h1>
+            </th>
+            <!-- <%console.log(item)%> -->
+        </tr>
+        <% }) %>
+</table>
+
+<a href="/newRecord">new record</a>
+<a href="/newGame">new game</a>
