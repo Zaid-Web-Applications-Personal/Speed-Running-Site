@@ -7,8 +7,9 @@ const gameSchema = require('./schemas/GameTypeSchema')
 const requestSchema = require('./schemas/RequestSchema')
 
 const RecordController = require("./controllers/RecordController.js")
+const UserController = require("./controllers/UserController.js")
 
-mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongodb connection error: '))
@@ -31,12 +32,7 @@ initPassport(
     passport,
     email => userSchema.find(email).email,
     id => userSchema.find(id).id
-
-    // email => users.find(user => user.email === email),
-    // id => users.find(user => user.id === id)
 )
-
-// const users = [] // lets change this later
 
 app.set('view-engine', "ejs")
 app.use(express.urlencoded({ extended: false }))
@@ -51,20 +47,12 @@ app.use(passport.session())
 
 
 app.get('/', checkAuthenticated, async (req, res) => {
-    // PlayerData = []
-    // for (var i in req.user.PlayerData) {
-    //     console.log(await recordSchema.findOne({ "_id": req.user.PlayerData[i] }))
-    //     console.log(PlayerData.push(await recordSchema.findOne({ "_id": req.user.PlayerData[i] })))
-    // }
     const games = await gameSchema.find()
         .limit(10)
         .sort("name");
     res.render('index.ejs', { user: req.user, PlayerData: games })
 })
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.ejs')
-})
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/',
@@ -72,39 +60,11 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     failureFlash: true
 }))
 
-app.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register.ejs')
-})
+app.get('/login', checkNotAuthenticated, UserController.getLogin)
+app.get('/register', checkNotAuthenticated, UserController.getRegister)
+app.get('/logout', UserController.getLogout)
+app.post('/register', checkNotAuthenticated, UserController.postRegister)
 
-app.post('/register', checkNotAuthenticated, async (req, res) => {
-    console.log("trying to post")
-    try {
-        const hashedPass = await bcrypt.hash(req.body.password, 10)
-        const user = await userSchema.create({
-            id: Date.now().toString(),
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPass,
-            role: 'user'
-        })
-        // users.push({
-        //     id: Date.now().toString(),
-        //     name: req.body.name,
-        //     email: req.body.email,
-        //     password: await bcrypt.hash(req.body.password, 10),
-        //     role: 'admin'
-        // })
-        res.redirect('/login')
-    } catch (e) {
-        console.log(e)
-        res.redirect('/register')
-    }
-})
-
-app.get('/logout', (req, res) => {
-    req.logOut()
-    res.redirect('/login')
-})
 
 app.get('/newRecord', checkAuthenticated, RecordController.getNewRecord)
 app.post('/newRecord', checkAuthenticated, RecordController.getGameToPost)
@@ -113,28 +73,9 @@ app.delete('/AllowRecord/:id', checkAuthenticated, checkUserType, RecordControll
 app.get('/AllowRecord/:id', checkAuthenticated, checkUserType, RecordController.getAllowRecord)
 app.post('/AllowRecord/:id', checkAuthenticated, checkUserType, RecordController.postAllowRecord)
 
-
-// app.use('/newRecord', checkAuthenticated, RecordController)
-// app.get('/newRecord', checkAuthenticated, (req, res) => {
-//     console.log(req.user)
-//     res.render('newRecord.ejs', { name: req.user.name })
-// })
-
-// app.post('/newRecord', checkAuthenticated, async (req, res) => {
-//     const gameType = await gameSchema.findOne({ "name": req.body.game_name })
-//     console.log(gameType)
-//     console.log("gameType")
-//     if (gameType == undefined)
-//         res.render('newRecord.ejs')
-//     else
-//         res.render('newRecordData.ejs', { PlayerData: gameType })
-// })
-
 app.get('/admin', checkAuthenticated, checkUserType, async(req, res) => {
     const games = await requestSchema.find()
         .limit(10)
-        // .sort("name");
-    // console.log(games)
     res.render('admin.ejs', { user: req.user, PlayerData: games })
 })
 
