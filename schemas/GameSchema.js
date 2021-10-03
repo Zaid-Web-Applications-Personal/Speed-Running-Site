@@ -7,7 +7,7 @@ var gameSchema = new Schema({
     name: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
-    PlayerData: [{ type: Schema.Types.ObjectId, ref: 'playerMode' }],
+    PlayerData: [{ type: Schema.Types.ObjectId}],
     role: {type: String, default: 'user'}
 })
 

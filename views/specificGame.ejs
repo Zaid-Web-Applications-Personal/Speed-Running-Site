@@ -1,4 +1,4 @@
-</h1>
+<%- include('./_header.ejs') %>
 
 <table id="myData">
 
@@ -16,17 +16,7 @@
             </th>
             <th style="border: 1px solid black;">
                 <h1>
-                    <%= time_hours %>
-                </h1>
-            </th>
-            <th style="border: 1px solid black;">
-                <h1>
-                    <%= time_minutes %>
-                </h1>
-            </th>
-            <th style="border: 1px solid black;">
-                <h1>
-                    <%= time_seconds %>
+                    hr: <%= time_hours %> min: <%= time_minutes %> sec: <%= time_seconds %> 
                 </h1>
             </th>
             <th style="border: 1px solid black;">
@@ -36,7 +26,7 @@
             </th>
             <th style="border: 1px solid black;">
                 <h1>
-                    <%= item.date %>
+                    <%= item.date.toDateString() %>
                 </h1>
             </th>
             <th style="border: 1px solid black;">
@@ -46,7 +36,12 @@
             </th>
             <th style="border: 1px solid black;">
                 <h1>
-                    <%= item.runType %>
+                    <%= item.run_type %>
+                </h1>
+            </th>
+            <th style="border: 1px solid black;">
+                <h1>
+                    <%= item.player_name %>
                 </h1>
             </th>
             <!-- <%console.log(item)%> -->

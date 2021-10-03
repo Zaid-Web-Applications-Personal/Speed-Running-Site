@@ -10,7 +10,8 @@ var gameSchema = new Schema({
     platform: Number,
     date: { type: Date, defualt: Date.now },
     link: String,
-    runType: String,
+    run_type: String,
+    player_name: String,
 })
 var playerModel = mongoose.model('playerModel', gameSchema);
 

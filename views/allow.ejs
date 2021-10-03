@@ -1,12 +1,15 @@
-<!-- all this page does is allow the admins to say if the run is allowed or not -->
-<!-- <%= PlayerData %> -->
+<%- include('./_header.ejs') %>
+
+<%= console.log("Data + " + PlayerData) %>
+
+
 <tr>
     <th style="border: 1px solid black;">
         <h1>
             <%= PlayerData.game_name %>
         </h1>
         <h1>
-            <%= PlayerData.runType %>
+            <%= PlayerData.run_type %>
         </h1>
     </th>
     <th style="border: 1px solid black;">
@@ -22,7 +25,7 @@
 </tr>
 
 <form action="" method="POST">
-    <input type="hidden" name="id" value='<%=PlayerData._id%>'>
+    <input type="hidden" name="id" value='<%=PlayerData.id%>'>
     <input type="submit" name="Add" value="Add" />
     <input type="submit" name="Remove" value="Remove" />
 </form>

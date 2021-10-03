@@ -1,3 +1,5 @@
+<%- include('./_header.ejs') %>
+
 <form action='/newRecord/<%=PlayerData.name%>' method="POST">
     <img src='<%=PlayerData.gameImage%>'>
     <h1>
@@ -5,15 +7,15 @@
     </h1>
     <div>
         <label>time hours</label>
-        <input type="text" id="time_hours" name="time_hours" required>
+        <input type="number" id="time_hours" name="time_hours" required>
     </div>
     <div>
         <label>time minutes</label>
-        <input type="text" id="time_minutes" name="time_minutes" required>
+        <input type="number" id="time_minutes" name="time_minutes" required>
     </div>
     <div>
         <label>time seconds</label>
-        <input type="text" id="time_seconds" name="time_seconds" required>
+        <input type="number" id="time_seconds" name="time_seconds" required>
     </div>
     <div>
         <label>video link</label>
@@ -21,9 +23,9 @@
     </div>
     <div>
         <label>Run Type</label>
-        <!-- <input type="text" id="runType" name="runType" required> -->
-        <select style="width: 200px" name="runType" id="runType">
-            <% PlayerData.runType.forEach(function (item) { %>
+        <!-- <input type="text" id="run_type" name="run_type" required> -->
+        <select style="width: 200px" name="run_type" id="run_type">
+            <% PlayerData.run_type.forEach(function (item) { %>
                 <option value='<%=item%>'>
                     <%=item%>
                 </option>

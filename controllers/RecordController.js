@@ -20,12 +20,13 @@ const getGameToPost = async(req, res, next) => {
 }
 
 const postNewRecord = async(req, res, next) => {
-
     console.log(req.body)
-    console.log(req.body.runType)
+    console.log(req.body.run_type)
     const gameId = await gameSchema.findOne({ "name": req.params.id })
-    const time_seconds = req.body.time_seconds + (60 * req.body.time_minutes) + (3600 * req.body.time_hours)
-    console.log(time_seconds)
+
+    const time_seconds = parseInt(req.body.time_seconds) + (60 * parseInt(req.body.time_minutes)) + (3600 * parseInt(req.body.time_hours))
+    console.log(parseInt(req.body.time_seconds) + (60 * parseInt(req.body.time_minutes)) + (3600 * parseInt(req.body.time_hours)))
+    console.log("HELLO")
     const new_rec = await requestSchema.create({
         id: req.user.id,
         game_id: gameId._id,
@@ -34,25 +35,26 @@ const postNewRecord = async(req, res, next) => {
         platform: req.body.platform,
         date: Date.now(),
         link: req.body.link,
-        runType: req.body.runType
+        run_type: req.body.run_type,
+        player_name: req.user.name
     })
+    console.log(new_rec)
 
     res.redirect('/')
 }
 
 const postAllowRecord = async(req, res, next) => { 
-    console.log(req.body.Add)
-    console.log(req.body.Remove)
     if(req.body.Remove != undefined)
     {
-        const what = await requestSchema.findOneAndRemove({"_id": req.body.id})
+        console.log(req.body.id)
+        const what = await requestSchema.findOneAndRemove({"_id": req.params.id})
         console.log(what)
         res.redirect('/admin')
     }
     else
     {
         console.log(req.body)
-        const game = await requestSchema.findOne({"_id": req.body.id})
+        const game = await requestSchema.findOne({"_id": req.params.id})
 
         const new_rec = await recordSchema.create({
             id: game.id,
@@ -62,55 +64,19 @@ const postAllowRecord = async(req, res, next) => {
             platform: game.platform,
             date: game.date,
             link: game.link,
-            runType: game.runType
+            run_type: game.run_type,
+            player_name: game.player_name
         })
         await userSchema.findOneAndUpdate({ "id": game.id }, { $push: { "PlayerData": new_rec } })
-        await requestSchema.findOneAndRemove({"_id": req.body.id})
-    
-        res.redirect('/admin')
-    }
-}
-
-const postNewAllowRecord = async(req, res, next) => {
-    console.log(req.body.Add)
-    console.log(req.body.Remove)
-    if(req.body.Remove != undefined)
-    {
-        const what = await requestSchema.findOneAndRemove({"_id": req.body.id})
-        console.log(what)
-        res.redirect('/admin')
-    }
-    else
-    {
-        console.log(req.body)
-        const game = await requestSchema.findOne({"_id": req.body.id})
-        const time_seconds = game.time_seconds + (60 * game.time_minutes) + (3600 * game.time_hours)
-        const new_rec = await recordSchema.create({
-            id: game.id,
-            game_id: game.game_id,
-            game_name: game.game_name,
-            time_seconds: time_seconds,
-            platform: game.platform,
-            date: game.date,
-            link: game.link,
-            runType: game.runType
-        })
-        await userSchema.findOneAndUpdate({ "id": game.id }, { $push: { "PlayerData": new_rec } })
-        await requestSchema.findOneAndRemove({"_id": req.body.id})
+        await requestSchema.findOneAndRemove({"_id": req.params.id})
     
         res.redirect('/admin')
     }
 }
 
 const getAllowRecord = async(req, res, next) => {
-    const game = await requestSchema.findOne(req.params._id)
+    const game = await requestSchema.findOne({"_id": req.params.id})
     res.render('../views/allow.ejs', { user: req.user, PlayerData: game })
 }
 
-const deleteAllowRecord = async(req, res, next) => {
-    console.log("hello")
-    const result = await requestSchema.findOneAndDelete({"_id": req.params.id})
-    console.log(result + "Hello")
-}
-
-module.exports = {getGameToPost, getNewRecord, postNewRecord, getAllowRecord, postNewAllowRecord, deleteAllowRecord, postAllowRecord}
+module.exports = {getGameToPost, getNewRecord, postNewRecord, getAllowRecord, postAllowRecord}

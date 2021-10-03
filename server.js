@@ -44,6 +44,7 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(express.static('public'));
 
 
 app.get('/', checkAuthenticated, async (req, res) => {
@@ -69,7 +70,6 @@ app.post('/register', checkNotAuthenticated, UserController.postRegister)
 app.get('/newRecord', checkAuthenticated, RecordController.getNewRecord)
 app.post('/newRecord', checkAuthenticated, RecordController.getGameToPost)
 app.post('/newRecord/:id', checkAuthenticated, RecordController.postNewRecord)
-app.delete('/AllowRecord/:id', checkAuthenticated, checkUserType, RecordController.deleteAllowRecord)
 app.get('/AllowRecord/:id', checkAuthenticated, checkUserType, RecordController.getAllowRecord)
 app.post('/AllowRecord/:id', checkAuthenticated, checkUserType, RecordController.postAllowRecord)
 
@@ -109,7 +109,7 @@ app.post('/newGame', async (req, res) => {
         const newGame = await gameSchema.create({
             name: req.body.g_name,
             releaseDate: req.body.release_date,
-            runType: req.body.run_type,
+            run_type: req.body.run_type,
             gameImage: req.body.game_image
         })
         console.log(newGame)
@@ -126,8 +126,8 @@ app.get('/:id/', async (req, res) => {
 
     res.render('specificGame.ejs', { user: req.user, PlayerData: PlayerData })
 })
-app.get('/:id/:runType', async (req, res) => {
-    PlayerData = await recordSchema.find({ "game_id": req.params.id, "runType": runType })
+app.get('/:id/:run_type', async (req, res) => {
+    PlayerData = await recordSchema.find({ "game_id": req.params.id, "run_type": run_type })
 
     res.render('specificGame.ejs', { user: req.user, PlayerData: PlayerData })
 })

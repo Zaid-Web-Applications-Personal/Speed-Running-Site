@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var gameSchema = new Schema({
     name: { type: String, required: true },
     releaseDate: Date,
-    runType: [{ type: String }],
+    run_type: [{ type: String }],
     gameImage: String
 })
 
