@@ -11,8 +11,6 @@ const getNewRecord = (req, res, next) => {
 
 const getGameToPost = async(req, res, next) => {
     const gameType = await gameSchema.findOne({ "name": req.body.game_name })
-    console.log(gameType)
-    console.log("gameType")
     if (gameType == undefined)
         res.render('newRecord.ejs')
     else
@@ -20,13 +18,9 @@ const getGameToPost = async(req, res, next) => {
 }
 
 const postNewRecord = async(req, res, next) => {
-    console.log(req.body)
-    console.log(req.body.run_type)
     const gameId = await gameSchema.findOne({ "name": req.params.id })
 
     const time_seconds = parseInt(req.body.time_seconds) + (60 * parseInt(req.body.time_minutes)) + (3600 * parseInt(req.body.time_hours))
-    console.log(parseInt(req.body.time_seconds) + (60 * parseInt(req.body.time_minutes)) + (3600 * parseInt(req.body.time_hours)))
-    console.log("HELLO")
     const new_rec = await requestSchema.create({
         id: req.user.id,
         game_id: gameId._id,
@@ -38,7 +32,6 @@ const postNewRecord = async(req, res, next) => {
         run_type: req.body.run_type,
         player_name: req.user.name
     })
-    console.log(new_rec)
 
     res.redirect('/')
 }
@@ -46,14 +39,11 @@ const postNewRecord = async(req, res, next) => {
 const postAllowRecord = async(req, res, next) => { 
     if(req.body.Remove != undefined)
     {
-        console.log(req.body.id)
         const what = await requestSchema.findOneAndRemove({"_id": req.params.id})
-        console.log(what)
         res.redirect('/admin')
     }
     else
     {
-        console.log(req.body)
         const game = await requestSchema.findOne({"_id": req.params.id})
 
         const new_rec = await recordSchema.create({

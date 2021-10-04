@@ -15,7 +15,6 @@ const getRegister = async(req, res, next) => {
 }
 
 const postRegister = async(req, res, next) => {
-    console.log("trying to post")
     try {
         const hashedPass = await bcrypt.hash(req.body.password, 10)
         const user = await userSchema.create({
