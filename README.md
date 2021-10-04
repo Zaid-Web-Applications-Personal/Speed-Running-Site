@@ -54,5 +54,5 @@ Add a `.env` file to the project and a `SESSION_SECRET`, `ADMIN`, and `MONGO`. `
 ## To-Do
 
 - [x] Add Admins Pages.
-- [ ] Update Styling.
+- [x] Update Styling.
 - [ ] Add Comments.
