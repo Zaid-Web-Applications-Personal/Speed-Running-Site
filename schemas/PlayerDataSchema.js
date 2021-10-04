@@ -13,6 +13,7 @@ var gameSchema = new Schema({
     run_type: String,
     player_name: String,
 })
+
 var playerModel = mongoose.model('playerModel', gameSchema);
 
 module.exports = playerModel
