@@ -69,6 +69,7 @@ app.post('/register', checkNotAuthenticated, UserController.postRegister)
 
 app.get('/newRecord', checkAuthenticated, RecordController.getNewRecord)
 app.post('/newRecord', checkAuthenticated, RecordController.getGameToPost)
+app.get('/newRecord/search', checkAuthenticated, checkUserType, RecordController.postSearchGame)
 app.post('/newRecord/:id', checkAuthenticated, RecordController.postNewRecord)
 app.get('/AllowRecord/:id', checkAuthenticated, checkUserType, RecordController.getAllowRecord)
 app.post('/AllowRecord/:id', checkAuthenticated, checkUserType, RecordController.postAllowRecord)

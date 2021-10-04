@@ -69,4 +69,32 @@ const getAllowRecord = async(req, res, next) => {
     res.render('../views/allow.ejs', { user: req.user, PlayerData: game })
 }
 
-module.exports = {getGameToPost, getNewRecord, postNewRecord, getAllowRecord, postAllowRecord}
+function buildResultSet(docs)
+{
+    var result = [];
+    for(var object in docs){
+        result.push(docs[object]);
+    }
+    return result;
+}
+
+const postSearchGame = function(req, res, next) {
+    var regex = new RegExp(req.query["term"], 'i');
+    var query = gameSchema.find({name: regex}, { 'name': 1 }).limit(20);
+    query.exec(function(err, users) {
+        if (!err) {
+           var result = buildResultSet(users);
+           res.send(result, {
+              'Content-Type': 'application/json'
+           }, 200);
+        } else {
+           res.send(JSON.stringify(err), {
+              'Content-Type': 'application/json'
+           }, 404);
+        }
+     });
+}
+
+
+
+module.exports = {getGameToPost, getNewRecord, postNewRecord, getAllowRecord, postAllowRecord, postSearchGame}

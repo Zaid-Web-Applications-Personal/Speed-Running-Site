@@ -1,12 +1,36 @@
 <%- include('./_header.ejs') %>
 
 <h1>New Record</h1>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="css/NewRecordStyle.css">
 
 <form action="/newRecord" method="POST">
 
-    <div>
-        <label>game name</label>
-        <input type="text" id="game_name" name="game_name" required>
+    <div class="ui-widget">
+        <label for="tags">Game Name: </label>
+        <input id="tags">
     </div>
+
     <button type="submit">Select Game</button>
 </form>
+
+
+<script type="text/javascript">
+  $(function() {
+    $("#tags").autocomplete({
+        source: function(request, response) {
+            $.get("http://localhost:3000/newRecord/search?key=%QUERY"
+            , {
+                term: request.term
+            },
+            function(data) {
+                response($.map(data, function(item) {
+                    return {label: item.name, track: item};
+                }));
+            });
+        },
+        autoFocus: true,
+    });
+  });
+</script>
