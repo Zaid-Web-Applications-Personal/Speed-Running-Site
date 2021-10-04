@@ -9,9 +9,15 @@
 
 ## General Info
 
-![Screenshot 2021-09-28 153731](https://user-images.githubusercontent.com/64388455/135175159-23ebd274-bec1-4815-af38-7afb0c6bea0b.png)
+![unknown](https://user-images.githubusercontent.com/64388455/135778318-b14aaa3e-0327-4ffe-8c2b-c04bb45ced65.png)
 
-This project is a Speed Running Website. You can post you're speed runs, and if they are verified by an ADMIN then it will be posted for the world to see. If there is a game that you love speedrunning but cannot find it, then you can make a request to have that game up for the world to see.
+This project is a Speed Running Website. You can post you're speed runs, and if they are verified by an ADMIN then it will be posted for the world to see. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/64388455/135778330-4074afd8-92a4-4cde-a44c-b4fa9ec26987.png" />
+</p>
+
+If there is a game that you love speedrunning but cannot find it, then you can make a request to have that game up for the world to see.
 
 ## Technologies
 
@@ -48,5 +54,5 @@ Add a `.env` file to the project and a `SESSION_SECRET`, `ADMIN`, and `MONGO`. `
 ## To-Do
 
 - [x] Add Admins Pages.
-- [ ] Update Styling.
+- [x] Update Styling.
 - [ ] Add Comments.
