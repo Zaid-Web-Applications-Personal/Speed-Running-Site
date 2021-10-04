@@ -8,8 +8,8 @@
 <form action="/newRecord" method="POST">
 
     <div class="ui-widget">
-        <label for="tags">Game Name: </label>
-        <input id="tags">
+        <label for="game_name">Game Name: </label>
+        <input type="text" name="game_name" id="game_name" required>
     </div>
 
     <button type="submit">Select Game</button>
@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
   $(function() {
-    $("#tags").autocomplete({
+    $("#game_name").autocomplete({
         source: function(request, response) {
             $.get("http://localhost:3000/newRecord/search?key=%QUERY"
             , {
